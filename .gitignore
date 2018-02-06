@@ -4,3 +4,5 @@ users.csv
 lista_relevancia_1.txt
 lista_relevancia_2.txt
 vendor/
+
+src/data/profiles\.sql

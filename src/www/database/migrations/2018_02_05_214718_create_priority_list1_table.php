@@ -18,6 +18,17 @@ class CreatePriorityList1Table extends Migration
             $table->string('string_id');
             $table->timestamps();
         });
+        $file = base_path('data/lista_relevancia_1.txt');
+        if($file){
+            $query = "
+         LOAD DATA INFILE '$file'
+         INTO TABLE priority_list1
+         COLUMNS TERMINATED BY '\n'
+         LINES TERMINATED BY '\n'
+        (string_id);";
+            $pdo =  DB::connection()->getpdo();
+            $pdo->exec($query);
+        }
     }
 
     /**

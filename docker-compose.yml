@@ -33,4 +33,4 @@ services:
         MYSQL_DATABASE: picpay
      volumes:
        - /srv/www
-       - ./src/www/data:/srv/www/data
+       - ./src/data:/srv/www/data

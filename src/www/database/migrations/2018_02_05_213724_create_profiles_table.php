@@ -23,6 +23,18 @@ class CreateProfilesTable extends Migration
             $table->timestamps();
         });
 
+        $file = base_path('data/users.csv');
+        if($file){
+            $query = "
+         LOAD DATA INFILE '$file'
+         INTO TABLE profiles
+         COLUMNS TERMINATED BY ','
+          ENCLOSED BY '\"'
+         LINES TERMINATED BY '\r\n'
+        (string_id,name,username);";
+            $pdo =  DB::connection()->getpdo();
+            $pdo->exec($query);
+        }
     }
 
     /**
