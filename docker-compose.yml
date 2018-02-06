@@ -6,29 +6,31 @@ services:
       dockerfile: nginx.dockerfile
      working_dir: /srv/www
      network_mode: bridge
-     env_file: env
      links:
         - php
      ports:
-       - 80:80
+       - 8080:80
      volumes_from:
         - php
   php:
-     build: 
+     build:
       context: ./
       dockerfile: php.dockerfile
      working_dir: /srv/www
      network_mode: bridge
      links:
-        - db
+       - db
      volumes:
         - /srv/www
         - ./src/www:/srv/www
      env_file: env
   db:
      image: mysql
+     command: --max_allowed_packet=1G --secure-file-priv=""
      network_mode: bridge
-     command: --max_allowed_packet=512M
      environment:
         MYSQL_ROOT_PASSWORD: secret
-        MYSQL_DATABASE: picpay_users
+        MYSQL_DATABASE: picpay
+     volumes:
+       - /srv/www
+       - ./src/www/data:/srv/www/data

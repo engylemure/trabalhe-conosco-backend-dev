@@ -1,18 +1,21 @@
-FROM php
+FROM php:7.2.1-fpm-alpine
+
+RUN apk add --update libxml2-dev openssl-dev bash curl-dev icu-dev git ca-certificates nodejs freetype-dev libjpeg-turbo-dev libpng-dev libmcrypt-dev nano
+
+RUN docker-php-ext-install json xml pdo phar curl dom intl ctype pdo_mysql mysqli opcache gd iconv session mbstring > /dev/null
+
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 WORKDIR /srv/www
 
 ADD src/www /srv/www
-RUN apt-cache search php7.0-\*
-RUN apt-get update && apt-get install php7.0-mbstring
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN composer install
+RUN apk add --update --virtual build-dependencies build-base autoconf libtool
 
-RUN apt-get update && apt-get install -y libmcrypt-dev \
-    mysql-client libmagickwand-dev --no-install-recommends \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
-    && docker-php-ext-install mcrypt pdo_mysql
+RUN apk add --update libmcrypt-dev mysql-client imagemagick-dev
+RUN pecl install imagick
+RUN docker-php-ext-enable imagick
 
 VOLUME ["/srv/www"]
+
+CMD ["sh","./start.sh"]
