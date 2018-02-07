@@ -1,8 +1,8 @@
-idea/
+.idea/
 .vscode/
 users.csv
 lista_relevancia_1.txt
 lista_relevancia_2.txt
 vendor/
-
+node_modules/
 src/data/profiles\.sql

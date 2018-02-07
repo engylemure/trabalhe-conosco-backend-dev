@@ -1,6 +1,19 @@
 version: '2'
 services:
-  nginx:
+  front_end:
+    build:
+      context: ./
+      dockerfile: front_end.dockerfile
+    working_dir: /app/
+    network_mode: bridge
+    links:
+      - web:picpay.docker
+    ports:
+      - 3000:3000
+    volumes:
+      - /app/
+      - ./front-end/:/app/
+  web:
      build:
       context: ./
       dockerfile: nginx.dockerfile
