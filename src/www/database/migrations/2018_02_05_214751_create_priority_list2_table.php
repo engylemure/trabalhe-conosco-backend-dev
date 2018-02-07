@@ -15,7 +15,7 @@ class CreatePriorityList2Table extends Migration
     {
         Schema::create('priority_list2', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('string_id');
+            $table->string('identifier');
             $table->timestamps();
         });
 

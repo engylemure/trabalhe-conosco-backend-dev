@@ -15,7 +15,7 @@ class CreatePriorityList1Table extends Migration
     {
         Schema::create('priority_list1', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('string_id');
+            $table->string('identifier');
             $table->timestamps();
         });
         $file = base_path('data/lista_relevancia_1.txt');

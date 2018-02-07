@@ -10,16 +10,16 @@ class ProfileController extends Controller
 {
     public function index(Request $request)
     {
-        $profiles = Profile::all();
+        $profiles = DB::table('profiles');
         if($search = $request->get('search')){
-            $profiles = $profiles->where('name','like',"%{$profiles}%")
-                        ->orWhere('username','like',"%{$profiles}%")
-                        ->leftJoin('priority_list1','profiles.string_id','=','priority_list1.string_id')
-                        ->leftJoin('priority_list2','profiles.string_id','=','priority_list2.string_id')
-                        ->orderBy('string_id','desc');
+            $profiles = $profiles->where('name','like',"%{$search}%")
+                        ->orWhere('username','like',"%{$search}%")
+                        ->leftJoin('priority_list1','profiles.string_id','=','priority_list1.identifier')
+                        ->orderBy('priority_list1.identifier','desc')
+                        ->leftJoin('priority_list2','profiles.string_id','=','priority_list2.identifier')
+                        ->orderBy('priority_list2.identifier','desc');
         }
-
-        return $profiles->paginate(15);
+        return $profiles->simplePaginate(15);
     }
 
     public function show(Profile $profile)
