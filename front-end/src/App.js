@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import logoPicPay from './assets/svg/logoPicPay.svg'
+import placeHolder from './assets/img/hero-feed.png'
 import './App.css';
-import First from './files/components/First'
-
+import First from './components/First'
+import Header from './components/Header'
 class App extends Component {
     constructor(props){
         super(props)
@@ -13,21 +14,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p className="First-edit">
-          comecei a editar
-        </p>
-         <p className="First-edit">
+        {/* <header className="App-header">
+          <img src={logoPicPay} className="PP-logo" alt="logo" />
+        </header> */}
+        <Header />
+        <img src={placeHolder} className="placeHolder" />
+         {/* <p className="First-edit">
              <button onClick={() => this.setState(prevState => ({
                     numberOfClicks: prevState.numberOfClicks+1
              }))} > Clique aqui </button>
-         </p>
+         </p> */}
         <First number={this.state.numberOfClicks}/>
       </div>
     );
