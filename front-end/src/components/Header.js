@@ -1,18 +1,45 @@
 import React, {Component} from 'react'
 import logoPicPay from './../assets/svg/logoPicPay.svg'
 import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
-import Menu from 'material-ui/svg-icons/navigation/menu'
 import './../App.css';
 export default class Header extends Component{
     render(){
         return (
             <AppBar
             title={<img src={logoPicPay} className="PP-logo" alt="logo" />}
-            iconElementLeft={<IconButton ><Menu className={styles.menuIcon}/></IconButton>}
-            // iconElementRight={<FlatButton label="Registrar" />}
+            iconElementLeft={!this.props.loggedOn?<FlatButton
+                label="Fazer Login"
+                style={{
+                color:'white' }}
+                onClick={this.props.onEntrarClick}
+                labelStyle={{
+                    paddingLeft:30,
+                    fontWeight:'bold',
+                    fontSize:16
+                }}
+            />:<FlatButton
+                label="Sair"
+                style={{
+                    color:'white' }}
+                onClick={this.props.onSairClick}
+                labelStyle={{
+                    paddingLeft:30,
+                    fontWeight:'bold',
+                    fontSize:16
+                }}
+            />}
+            iconElementRight={!this.props.loggedOn?<FlatButton
+                label="Registrar"
+                onClick={this.props.onRegistrarClick}
+                style={{
+                    color:'white' }}
+                labelStyle={{
+                    paddingRight:30,
+                    fontWeight:'bold',
+                    fontSize:16
+                }}
+            />:null}
             style={styles.style}
             titleStyle={styles.titleStyle}
           />
