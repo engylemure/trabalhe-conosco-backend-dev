@@ -1,0 +1,29 @@
+version: '2'
+services:
+  nginx:
+    image: nginx:alpine
+    network_mode: bridge
+    links:
+      - php
+    ports:
+      - 8000:80
+    volumes_from:
+      - php
+  php:
+    build: .
+    network_mode: bridge
+    links:
+      - db
+    volumes:
+      - /srv/www
+      - ./src/www:/srv/www
+    env_file: env
+  db:
+    image: mysql:5.7.22
+    network_mode: bridge
+    command: --max_allowed_packet=1G --secure-file-priv=""
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: picpay
