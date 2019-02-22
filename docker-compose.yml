@@ -1,18 +1,5 @@
 version: '2'
 services:
-  front_end:
-    build:
-      context: ./
-      dockerfile: front_end.dockerfile
-    working_dir: /app/
-    network_mode: bridge
-    links:
-      - web:picpay.docker
-    ports:
-      - 3000:3000
-    volumes:
-      - /app/
-      - ./front-end/:/app/
   web:
      build:
       context: ./
@@ -39,7 +26,13 @@ services:
      env_file: env
   db:
      image: mysql
-     command: --max_allowed_packet=1G --secure-file-priv=""
+     command:
+       [
+         '--default-authentication-plugin=mysql_native_password',
+         '--max_allowed_packet=512M',
+         '--character-set-server=utf8',
+         '--secure-file-priv='
+       ]
      network_mode: bridge
      environment:
         MYSQL_ROOT_PASSWORD: secret

@@ -1,17 +1,20 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Seed the application's database.
      *
      * @return void
      */
     public function run()
     {
-        //
+         $this->call([
+//             ProfileSeeder::class,
+             PrimaryRelevanceListSeeder::class,
+             SecondaryRelevanceListSeeder::class
+         ]);
     }
 }
